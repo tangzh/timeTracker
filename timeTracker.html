@@ -1,0 +1,50 @@
+<head>
+  <title>timeTracker</title>
+</head>
+
+<body>
+	<div class="container">
+		<header>
+			<h4 class="center">Start keeping track of your time now!!</h4>
+
+			{{> timer}}
+	    {{> newTimer}}
+
+		</header>	
+	  {{> recordHistory}}
+	</div> 
+</body>
+
+<template name="timer">
+	<div class="center timer-value"> {{timerValue}} </div>
+</template>
+
+
+<template name="newTimer">
+	<form class="new-timer center">
+    <input type="text" name="text" class="center" placeholder="Type in the project you are working now." />
+    <button id="record-btn" class="{{btnClass}}">
+    	{{#if startedTimer}}
+    	  Stop 
+    	{{else }}
+    	  Start 
+    	{{/if}}	
+    </button>
+  </form>
+</template>
+
+<template name="recordHistory">
+	<ul>
+		{{#each records}}
+		  {{> record}}
+		{{/each}}
+	</ul>	
+</template>
+
+<template name="record">
+	<li>
+		<button class="delete">&times;</button>
+		{{project}} 
+		<br>
+		{{timeLength}}</li>
+</template>
