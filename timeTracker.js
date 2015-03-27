@@ -17,6 +17,13 @@ if (Meteor.isClient) {
   Template.record.events({
     'click .delete': function() {
       Records.remove(this._id);
+    },
+    'keypress input.projectName': function(event, template) {
+      if (event.which === 13) {
+        Records.update(this._id, {$set: {
+          project: template.find('.projectName').value
+        }});
+      }
     }
   });
 

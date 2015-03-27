@@ -97,3 +97,8 @@ li {
 .stop-btn {
 	color: red;
 }
+
+.projectName {
+	border: none;
+	font-size: 1em;
+}
