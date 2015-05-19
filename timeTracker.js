@@ -23,6 +23,7 @@ if (Meteor.isClient) {
         Records.update(this._id, {$set: {
           project: template.find('.projectName').value
         }});
+        template.find('.projectName').blur();
       }
     }
   });
@@ -48,7 +49,7 @@ if (Meteor.isClient) {
     'submit .new-timer' : function(event) {
       event.preventDefault();
 
-      if (Session.get("startedTimer")) {
+      if (Session.get("startedTimer")) { // to stop the timer
         Session.set('startedTimer', false);
         Session.set('btnClass', 'start-btn');
         clearInterval(timerFunc);
@@ -60,11 +61,16 @@ if (Meteor.isClient) {
           timeLength: Session.get('timerValue')
         });
         event.target.text.value = "";
-      }else {
-        var started = 0;
+      }else { // to start the timer
+        // var started = 0;
+        
+        var starttime = new Date();
         timerFunc = setInterval(function() {
-          started += 1;
-          Session.set("timerValue", getTimeFormat(started));
+          var currenttime = new Date(),
+              timeLength = currenttime.getTime() - starttime.getTime();
+          timeLength = timeLength / 1000 | 0;
+
+          Session.set("timerValue", getTimeFormat(timeLength));
         }, 1000);
         Session.set('startedTimer', true);
         Session.set('btnClass', 'stop-btn');
