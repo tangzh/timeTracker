@@ -1,36 +1,14 @@
-Records = new Mongo.Collection("records");
-
 if (Meteor.isClient) {
-  // counter starts at 0
-  Session.setDefault("counter", 0);
-  Session.setDefault("timerValue", "00 : 00 : 00");
-  Session.setDefault("btnClass", "start-btn");
+	var START_BTN_CLASS = 'btn-primary',
+	    STOP_BTN_CLASS = 'btn-danger';
+
+	Session.setDefault("timerValue", "00 : 00 : 00");
+  Session.setDefault("btnClass", START_BTN_CLASS);
   Session.setDefault("startedTimer", false);
 
-  // History
-  Template.recordHistory.helpers({
-    records: function() {
-      return Records.find({}, {sort: {createdAt: -1}});
-    }
-  });
+	var timerFunc;
 
-  Template.record.events({
-    'click .delete': function() {
-      Records.remove(this._id);
-    },
-    'keypress input.projectName': function(event, template) {
-      if (event.which === 13) {
-        Records.update(this._id, {$set: {
-          project: template.find('.projectName').value
-        }});
-        template.find('.projectName').blur();
-      }
-    }
-  });
-
-  var timerFunc;
-
-  Template.timer.helpers({
+	Template.timer.helpers({
     timerValue: function() {
       return Session.get("timerValue");
     }
@@ -50,19 +28,25 @@ if (Meteor.isClient) {
       event.preventDefault();
 
       if (Session.get("startedTimer")) { // to stop the timer
-        Session.set('startedTimer', false);
-        Session.set('btnClass', 'start-btn');
-        clearInterval(timerFunc);
+      	var $projectInputField = $('.project-name-input-field'),
+      	    projectName = $projectInputField.val();
 
-        var projectName = event.target.text.value;
-        Records.insert({
-          project: projectName,
-          createdAt: new Date(),
-          timeLength: Session.get('timerValue')
-        });
-        event.target.text.value = "";
+        if (projectName.length === 0) {
+        	$projectInputField.closest('.form-group').addClass('has-error');
+        }else {
+        	console.log(projectName);
+        	$projectInputField.closest('.form-group').removeClass('has-error');
+        	Session.set('startedTimer', false);
+        	Session.set('btnClass', START_BTN_CLASS);
+	        clearInterval(timerFunc);
+        	Records.insert({
+	          project: projectName,
+	          createdAt: new Date(),
+	          timeLength: Session.get('timerValue')
+	        });
+	        event.target.text.value = "";
+        }      
       }else { // to start the timer
-        // var started = 0;
         
         var starttime = new Date();
         timerFunc = setInterval(function() {
@@ -73,18 +57,11 @@ if (Meteor.isClient) {
           Session.set("timerValue", getTimeFormat(timeLength));
         }, 1000);
         Session.set('startedTimer', true);
-        Session.set('btnClass', 'stop-btn');
+        Session.set('btnClass', STOP_BTN_CLASS);
       }   
     }
   });
 }
-
-if (Meteor.isServer) {
-  Meteor.startup(function () {
-    // code to run on server at startup
-  });
-}
-
 
 // helper methods
 function getTimeFormat(timeLength) {
@@ -103,6 +80,6 @@ function getTimeFormat(timeLength) {
 }
 
 function getTimeStr(number) {
-  return number< 10 ? '0' + number : number;
+  return number < 10 ? '0' + number : number;
 }
 
