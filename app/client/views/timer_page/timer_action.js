@@ -1,7 +1,9 @@
 if (Meteor.isClient) {
-	
+	var START_BTN_CLASS = 'btn-primary',
+	    STOP_BTN_CLASS = 'btn-danger';
+
 	Session.setDefault("timerValue", "00 : 00 : 00");
-  Session.setDefault("btnClass", "start-btn");
+  Session.setDefault("btnClass", START_BTN_CLASS);
   Session.setDefault("startedTimer", false);
 
 	var timerFunc;
@@ -26,19 +28,25 @@ if (Meteor.isClient) {
       event.preventDefault();
 
       if (Session.get("startedTimer")) { // to stop the timer
-        Session.set('startedTimer', false);
-        Session.set('btnClass', 'start-btn');
-        clearInterval(timerFunc);
+      	var $projectInputField = $('.project-name-input-field'),
+      	    projectName = $projectInputField.val();
 
-        var projectName = event.target.text.value;
-        Records.insert({
-          project: projectName,
-          createdAt: new Date(),
-          timeLength: Session.get('timerValue')
-        });
-        event.target.text.value = "";
+        if (projectName.length === 0) {
+        	$projectInputField.closest('.form-group').addClass('has-error');
+        }else {
+        	console.log(projectName);
+        	$projectInputField.closest('.form-group').removeClass('has-error');
+        	Session.set('startedTimer', false);
+        	Session.set('btnClass', START_BTN_CLASS);
+	        clearInterval(timerFunc);
+        	Records.insert({
+	          project: projectName,
+	          createdAt: new Date(),
+	          timeLength: Session.get('timerValue')
+	        });
+	        event.target.text.value = "";
+        }      
       }else { // to start the timer
-        // var started = 0;
         
         var starttime = new Date();
         timerFunc = setInterval(function() {
@@ -49,7 +57,7 @@ if (Meteor.isClient) {
           Session.set("timerValue", getTimeFormat(timeLength));
         }, 1000);
         Session.set('startedTimer', true);
-        Session.set('btnClass', 'stop-btn');
+        Session.set('btnClass', STOP_BTN_CLASS);
       }   
     }
   });

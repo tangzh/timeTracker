@@ -1,16 +1,24 @@
 <template name="timer">
-	<div class="center timer-value"> {{timerValue}} </div>
+  <div class="center timer-value"> {{timerValue}} </div>
 </template>
 
 <template name="newTimer">
-	<form class="new-timer center">
-    <input type="text" name="text" class="center" placeholder="Type in the project you are working now." />
-    <button id="record-btn" class="{{btnClass}}">
-    	{{#if startedTimer}}
-    	  Stop 
-    	{{else }}
-    	  Start 
-    	{{/if}}	
+  <form class="new-timer center">
+    <button id="record-btn" class="btn {{btnClass}}">
+      {{#if startedTimer}}
+        Stop 
+      {{else }}
+        Start 
+      {{/if}} 
     </button>
+    <br>
+    <div class="row">
+      <div class="form-group col-xs-9">
+        <input type="text" name="text" class=" form-control center project-name-input-field" placeholder="Type in the project you are working now." />
+      </div>
+      <div class="form-group col-xs-3">
+        <button class="form-control add-note-btn pull-right btn btn-default">Add Note</button>
+      </div>
+    </div>       
   </form>
 </template>

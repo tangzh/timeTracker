@@ -1,5 +1,6 @@
-body {
-  font-family: sans-serif;
+/*----------------------  General CSS --------------------------------*/
+
+/*body {
   background-color: #315481;
   background-image: linear-gradient(to bottom, #0097A7, #039BE5 100%);
   background-attachment: fixed;
@@ -15,6 +16,12 @@ body {
 
   font-size: 14px;
   line-height: 150%;
+  font-weight: 100;
+}
+*/
+
+body {
+  background: lightgrey;
 }
 
 .container {
@@ -23,12 +30,22 @@ body {
   min-height: 100%;
   background: white;
   padding: 0;
+  border: 1px solid lightgrey;
 }
 
+.thin-font {
+  font-weight: 100 !important;
+}
+
+.center {
+  text-align: center;
+}
+
+/*----------------------  CSS for timer page--------------------------------*/
+
 header {
-  background: #d2edf4;
-  background-image: linear-gradient(to bottom, #00BCD4, #03A9F4 100%);
-  padding: 20px 15px 15px 15px;
+  background: #000;
+  padding: 80px 15px 60px 15px;
   position: relative;
   color: white;
 }
@@ -42,13 +59,18 @@ form {
   box-sizing: border-box;
   padding: 10px 0;
   background: transparent;
-  border: none;
+  border: 1px lightgrey solid;
   width: 100%;
   font-size: 1em;
 }
 
 .new-timer input:focus{
   outline: 0;
+}
+
+.new-timer #record-btn {
+  margin: 0 0 20px;
+  font-size: 25px;
 }
 
 ul {
@@ -73,29 +95,10 @@ li {
   border-bottom: #eee solid 1px;
 }
 
-.center {
-	text-align: center;
-}
-
 .timer-value {
 	font-size: 50px;
 	padding: 15px 0;
-}
-
-#record-btn {
-	padding: 10px;
-	font-size: 20px;
-	border-radius: 5px;
-	background: transparent;
-	border: 1px solid;
-}
-
-.start-btn {
-	color: green;
-}
-
-.stop-btn {
-	color: red;
+  margin: 15px 0;
 }
 
 .projectName {
