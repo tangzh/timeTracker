@@ -1,0 +1,16 @@
+<template name="timer">
+	<div class="center timer-value"> {{timerValue}} </div>
+</template>
+
+<template name="newTimer">
+	<form class="new-timer center">
+    <input type="text" name="text" class="center" placeholder="Type in the project you are working now." />
+    <button id="record-btn" class="{{btnClass}}">
+    	{{#if startedTimer}}
+    	  Stop 
+    	{{else }}
+    	  Start 
+    	{{/if}}	
+    </button>
+  </form>
+</template>

@@ -1,36 +1,12 @@
-Records = new Mongo.Collection("records");
-
 if (Meteor.isClient) {
-  // counter starts at 0
-  Session.setDefault("counter", 0);
-  Session.setDefault("timerValue", "00 : 00 : 00");
+	
+	Session.setDefault("timerValue", "00 : 00 : 00");
   Session.setDefault("btnClass", "start-btn");
   Session.setDefault("startedTimer", false);
 
-  // History
-  Template.recordHistory.helpers({
-    records: function() {
-      return Records.find({}, {sort: {createdAt: -1}});
-    }
-  });
+	var timerFunc;
 
-  Template.record.events({
-    'click .delete': function() {
-      Records.remove(this._id);
-    },
-    'keypress input.projectName': function(event, template) {
-      if (event.which === 13) {
-        Records.update(this._id, {$set: {
-          project: template.find('.projectName').value
-        }});
-        template.find('.projectName').blur();
-      }
-    }
-  });
-
-  var timerFunc;
-
-  Template.timer.helpers({
+	Template.timer.helpers({
     timerValue: function() {
       return Session.get("timerValue");
     }
@@ -79,13 +55,6 @@ if (Meteor.isClient) {
   });
 }
 
-if (Meteor.isServer) {
-  Meteor.startup(function () {
-    // code to run on server at startup
-  });
-}
-
-
 // helper methods
 function getTimeFormat(timeLength) {
   var hour = timeLength / 3600 | 0,
@@ -103,6 +72,6 @@ function getTimeFormat(timeLength) {
 }
 
 function getTimeStr(number) {
-  return number< 10 ? '0' + number : number;
+  return number < 10 ? '0' + number : number;
 }
 

@@ -1,0 +1,16 @@
+<template name="recordHistory">
+	<ul>
+		{{#each records}}
+		  {{> record}}
+		{{/each}}
+	</ul>	
+</template>
+
+<template name="record">
+	<li>
+		<button class="delete">&times;</button>
+		<input type="text" name="projectName" class="projectName" value="{{project}}"/> 
+		<br>
+		{{timeLength}}
+	</li>
+</template>
