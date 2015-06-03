@@ -9,8 +9,12 @@
 <template name="record">
   <li>
     <button class="delete">&times;</button>
-    <input type="text" name="projectName" class="projectName" value="{{project}}"/> 
-    <br>
-    {{timeLength}}
+    <input type="text" name="projectName" class="projectName" value="{{projectName}}"/> 
+    <div class="info-container">
+      <span>Start: {{ formatDate starttime}} </span>
+      <br>
+      <span>To: {{ formatDate endtime}}</span>
+    </div>
+
   </li>
 </template>

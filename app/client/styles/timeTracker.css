@@ -85,3 +85,8 @@ li {
 	border: none;
 	font-size: 1em;
 }
+
+
+#add-label-modal {
+  color: #eee;
+}

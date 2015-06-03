@@ -2,17 +2,19 @@ if (Meteor.isClient) {
 	var START_BTN_CLASS = 'btn-primary',
 	    STOP_BTN_CLASS = 'btn-danger',
 	    $projectInputField,
-	    $addNoteBtn;
+	    $addLabelBtn,
+	    $addLabelModal;
 	    
 	Session.setDefault("timerValue", "00 : 00 : 00");
   Session.setDefault("btnClass", START_BTN_CLASS);
   Session.setDefault("startedTimer", false);
 
-	var timerFunc;
+	var timerFunc, starttime;
 
 	Template.newTimer.rendered = function() {
 		$projectInputField = $('.project-name-input-field'),
-	  $addNoteBtn = $('.add-note-btn');
+	  $addLabelBtn = $('.add-label-btn');
+	  $addLabelModal = $('#add-label-modal');
 	};
   
   /*====================================== Helpers for templates =================================================*/
@@ -39,13 +41,16 @@ if (Meteor.isClient) {
       }else { // to start the timer 
         startTimer();             
       }   
+    },
+    'click .add-label-btn' : function() {
+    	$addLabelModal.modal('show');
     }
   });
 
   /*====================================== Helper functions =================================================*/
 
   function startTimer() {
-  	var starttime = new Date();
+  	starttime = new Date();
     timerFunc = setInterval(function() {
       var currenttime = new Date(),
           timeLength = currenttime.getTime() - starttime.getTime();
@@ -55,7 +60,7 @@ if (Meteor.isClient) {
     }, 1000);
     Session.set('startedTimer', true);
     Session.set('btnClass', STOP_BTN_CLASS);
-    $addNoteBtn.removeClass('disabled');
+    $addLabelBtn.removeClass('disabled');
   }
 
   function stopTimer() {
@@ -66,16 +71,26 @@ if (Meteor.isClient) {
     }else {
     	$projectInputField.closest('.form-group').removeClass('has-error');
     	$projectInputField.val('');
-    	$addNoteBtn.addClass('disabled');
+    	$addLabelBtn.addClass('disabled');
 
     	Session.set('startedTimer', false);
     	Session.set('btnClass', START_BTN_CLASS);
       clearInterval(timerFunc);
-    	Records.insert({
-        project: projectName,
-        createdAt: new Date(),
-        timeLength: Session.get('timerValue')
-      });	        
+
+      var newRecord = {
+      	projectName: projectName,
+      	starttime: starttime,
+      	endtime: new Date(),
+      	labels: []
+      };
+
+      Records.insert(newRecord);
+
+      Meteor.call('addProject', newRecord, function(err, result) {
+      	if (err) {
+      		console.log(er);
+      	}
+      });   		        
     }
   }
 

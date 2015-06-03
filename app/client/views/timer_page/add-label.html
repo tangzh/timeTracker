@@ -1,0 +1,39 @@
+<template name="addLabelModal">
+  <div class="modal fade" id="add-label-modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Add Label</h4>
+        </div>
+        <div class="modal-body">
+          {{> chooseLabel}}
+          {{> addNewLabel}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Add Label</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="chooseLabel">
+  <div>
+    <h3>Choose Label</h3>
+
+    {{#each labels}}
+      {{> label}}
+    {{/each}}
+  </div>
+</template>
+
+<template name="label">
+  <span>{{name}}</span>
+</template>
+
+
+<template name="addNewLabel">
+</template>
+
