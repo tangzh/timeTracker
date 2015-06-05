@@ -1,36 +1,56 @@
-Records = new Mongo.Collection("records");
+// Records = new Mongo.Collection("records");
+
+/** Schema
+{
+  _id: ,
+  projectName: ,
+  startTime: ,
+  endTime: ,
+  timeLength: ,
+  labels:[
+    {
+      _id: ,
+      name: ,
+      color: 
+    }
+  ]
+}
+*/
+
 
 
 // methods
 
+
+
 // Meteor.methods({
-// 	addRecord: function(record) {
-// 		var projectName = record.project;
+//  addRecord: function(record) {
+//    var projectName = record.project;
 
-// 		if (Records.find({ projectName: projectName}).count() === 0) {
-// 			Records.insert({
-// 				projectName: projectName,
-// 				allRecords: [{
-// 					starttime: record.starttime,
-// 					endtime: record.endtime,
-// 					timelength: record.timelength,
-// 					labels: record.labels
-// 				}]
-// 			});
+//    if (Records.find({ projectName: projectName}).count() === 0) {
+//      Records.insert({
+//        projectName: projectName,
+//        allRecords: [{
+//          starttime: record.starttime,
+//          endtime: record.endtime,
+//          timelength: record.timelength,
+//          labels: record.labels
+//        }]
+//      });
 
-// 			return {
-// 				status: 'ok'
-// 			};
-// 		} else {
-// 			var record = Records.findOne({ projectName: projectName});
-// 			record.allRecords.push({
-// 				starttime: record.starttime,
-// 				endtime: record.endtime,
-// 				labels: record.labels
-// 			});
-// 			return {
-// 				status: 'ok'
-// 			};
-// 		}
-// 	}
+//      return {
+//        status: 'ok'
+//      };
+//    } else {
+//      var record = Records.findOne({ projectName: projectName});
+//      record.allRecords.push({
+//        starttime: record.starttime,
+//        endtime: record.endtime,
+//        labels: record.labels
+//      });
+//      return {
+//        status: 'ok'
+//      };
+//    }
+//  }
 // });

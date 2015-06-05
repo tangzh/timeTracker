@@ -84,13 +84,12 @@ if (Meteor.isClient) {
       	labels: []
       };
 
-      Records.insert(newRecord);
-
-      Meteor.call('addProject', newRecord, function(err, result) {
-      	if (err) {
-      		console.log(er);
-      	}
-      });   		        
+      Meteor.call('addRecord', newRecord);
+      // Meteor.call('addProject', newRecord, function(err, result) {
+      // 	if (err) {
+      // 		console.log(er);
+      // 	}
+      // });   		        
     }
   }
 

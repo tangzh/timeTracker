@@ -1,35 +1,40 @@
 Projects = new Mongo.Collection("projects");
 
-
 // methods
 
 Meteor.methods({
 	addProject: function(record) {
-		var projectName = record.projectName;
+		if (! Meteor.userId()) {
+      throw new Meteor.Error("not-authorized");
+    }
+
+		var projectName = record.projectName,
+		    projectId,
+		    currentUserId =  Meteor.userId();
 
 		if (Projects.find({ projectName: projectName}).count() === 0) {
 			Projects.insert({
 				projectName: projectName,
-				allRecords: [{
-					starttime: record.starttime,
-					endtime: record.endtime,
-					labels: record.labels
-				}]
+				users: [
+					{
+						currentUserId: [record.record_id]
+					}				  
+				]
+			}, function(err, result) {
+				projectId = result;
 			});
 
 			return {
-				status: 'ok'
+				status: 'ok',
+				data: projectId
 			};
 		} else {
 			var project = Projects.findOne({ projectName: projectName});
-			project.allRecords.push({
-				starttime: record.starttime,
-				endtime: record.endtime,
-				labels: record.labels
-			});
+			project.users.currentUserId.push(record.record_id);
 			
 			return {
-				status: 'ok'
+				status: 'ok',
+				data: project._id
 			};
 		}
 	}

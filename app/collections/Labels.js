@@ -29,5 +29,8 @@ Meteor.methods({
 		return {
 			status: 'ok'
 		};
+	},
+	addLabel: function(record) {
+
 	}
 });

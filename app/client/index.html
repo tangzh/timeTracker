@@ -3,14 +3,16 @@
 </head>
 
 <body>
-	<div class="container">
-		<header>
-			<h4 class="center thin-font">Start keeping track of your time now!</h4>
-			{{> timer}}
-	    {{> newTimer}}
-	    {{> addLabelModal}}
-		</header>	
+  <div class="container">
+    <header>
+      {{> loginPart}}
+      
+      <h4 class="center thin-font">Start keeping track of your time now!</h4>
+      {{> timer}}
+      {{> newTimer}}
+      {{> addLabelModal}}
+    </header> 
 
-	  {{> recordHistory}}
-	</div> 
+    {{> recordHistory}}
+  </div> 
 </body>

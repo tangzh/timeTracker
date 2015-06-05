@@ -9,11 +9,16 @@
 <template name="record">
   <li>
     <button class="delete">&times;</button>
-    <input type="text" name="projectName" class="projectName" value="{{projectName}}"/> 
-    <div class="info-container">
-      <span>Start: {{ formatDate starttime}} </span>
-      <br>
-      <span>To: {{ formatDate endtime}}</span>
+    <input type="text" name="projectName" class="projectName" value="{{project.projectName}}"/> 
+    <span> 1h 2min</span>
+    <div class="record-info-container row">
+      <div class="col-xs-6">
+        <span>Start: {{ formatDate starttime}} </span>
+        <br>
+        <span>To: {{ formatDate endtime}}</span>
+      </div>
+      <div class="labels-container"></div>
+      
     </div>
 
   </li>

@@ -1,9 +1,10 @@
 if (Meteor.isClient) {
+  Meteor.subscribe("userData");
 	// History
   Template.recordHistory.helpers({
-    records: function() {     
-      return Records.find({}, {sort: {starttime: -1}});
-    }   
+    records: function() {   
+      return Meteor.user().profile.records;
+    }
   });
 
   // individual record
@@ -15,7 +16,7 @@ if (Meteor.isClient) {
 
   Template.record.events({
     'click .delete': function() {
-      Records.remove(this._id);
+      Meteor.call('deleteRecord', this._id);
     },
     'keypress input.projectName': function(event, template) {
       if (event.which === 13) {
@@ -27,11 +28,11 @@ if (Meteor.isClient) {
         var record = Records.find({id: this._id}),
             newRecord = _.pick(record, 'projectName', 'starttime', 'endtime', 'labels');
             
-        Meteor.call('addProject', newRecord, function(err, result) {
-          if (err) {
-            console.log(er);
-          }
-        });
+        // Meteor.call('addProject', newRecord, function(err, result) {
+        //   if (err) {
+        //     console.log(er);
+        //   }
+        // });
         template.find('.projectName').blur();
       }
     }

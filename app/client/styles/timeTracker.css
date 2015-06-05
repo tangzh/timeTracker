@@ -21,13 +21,35 @@ body {
   text-align: center;
 }
 
+.modal .modal-dialog {
+  max-width: 600px;
+  margin-top: 0;
+}
+
+/*----------------------  CSS for login --------------------------------*/
+#login-buttons .login-button {
+  background-color: #1abc9c;
+  border: none;
+  box-shadow: none;
+}
+
+#login-buttons .login-button:hover {
+  background-color: #16A085;
+  border: none;
+  box-shadow: none;
+}
+
 /*----------------------  CSS for timer page--------------------------------*/
 
 header {
   background: #000;
-  padding: 80px 15px 60px 15px;
+  padding: 0 15px 60px 15px;
   position: relative;
   color: white;
+}
+
+.login {
+  padding-top: 10px;
 }
 
 form {
@@ -84,6 +106,10 @@ li {
 .projectName {
 	border: none;
 	font-size: 1em;
+}
+
+.record-info-container {
+  font-size: 0.8em;
 }
 
 
