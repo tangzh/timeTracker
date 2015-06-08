@@ -21,6 +21,10 @@ body {
   text-align: center;
 }
 
+.theme-color-text {
+  color: #1abc9c;
+}
+
 .modal .modal-dialog {
   max-width: 600px;
   margin-top: 0;

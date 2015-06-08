@@ -12,19 +12,25 @@ if (Meteor.isServer) {
 	});
 
 
-  // Meteor.publish('records', function() {
-  // 	if (! this.userId()) {
-  //     throw new Meteor.Error("not-authorized");
-  //   }
-  //   console.log('publish');
+  Meteor.publish('records', function() {
+  	if (!this.userId) {
+      throw new Meteor.Error("not-authorized");
+    }
 
-  //   return Meteor.user().find({});
-  // 	// return Records.find({});
-  // });
+  	return Records.find({});
+  });
 
   Meteor.publish('userData', function() {
 	  if(!this.userId) return null;
 	  return Meteor.users.find(this.userId);
 	});
+
+	Meteor.publish('projects', function() {
+  	if (!this.userId) {
+      throw new Meteor.Error("not-authorized");
+    }
+
+  	return Projects.find({});
+  });
 
 }

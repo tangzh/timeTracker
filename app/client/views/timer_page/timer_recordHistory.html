@@ -10,7 +10,7 @@
   <li>
     <button class="delete">&times;</button>
     <input type="text" name="projectName" class="projectName" value="{{project.projectName}}"/> 
-    <span> 1h 2min</span>
+    <span class="time-length theme-color-text">{{getTimeLength starttime endtime}}</span>
     <div class="record-info-container row">
       <div class="col-xs-6">
         <span>Start: {{ formatDate starttime}} </span>

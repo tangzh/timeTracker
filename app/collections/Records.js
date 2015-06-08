@@ -1,4 +1,4 @@
-// Records = new Mongo.Collection("records");
+Records = new Mongo.Collection("records");
 
 /** Schema
 {
@@ -17,40 +17,55 @@
 }
 */
 
-
-
 // methods
 
+Meteor.methods({
+  addRecord: function(record) {
+    var project = Meteor.call('addProject', record.projectName); 
+    // console.log('get project as', project);
 
+    record.project = {
+      projectId: project.projectId,
+      projectName: record.projectName
+    };
 
-// Meteor.methods({
-//  addRecord: function(record) {
-//    var projectName = record.project;
+    record.userId = Meteor.userId();
+    record = _.omit(record, 'projectName');
 
-//    if (Records.find({ projectName: projectName}).count() === 0) {
-//      Records.insert({
-//        projectName: projectName,
-//        allRecords: [{
-//          starttime: record.starttime,
-//          endtime: record.endtime,
-//          timelength: record.timelength,
-//          labels: record.labels
-//        }]
-//      });
+    var recordId;
+    // console.log('would insert new record ', record);
 
-//      return {
-//        status: 'ok'
-//      };
-//    } else {
-//      var record = Records.findOne({ projectName: projectName});
-//      record.allRecords.push({
-//        starttime: record.starttime,
-//        endtime: record.endtime,
-//        labels: record.labels
-//      });
-//      return {
-//        status: 'ok'
-//      };
-//    }
-//  }
-// });
+    Records.insert(record, function(err, result) {
+      recordId = result;
+      Meteor.call('addRecordToUser', recordId);
+      Meteor.call('addRecordToProject', project.projectId, recordId);
+    });  
+  },
+
+  deleteRecord: function(recordId) {
+    Meteor.call('deleteRecordFromUser', recordId );  
+    Meteor.call('deleteRecordFromProject', recordId );
+    Records.remove(recordId);  
+  },
+
+  updateRecordProject: function(recordId, newProjectName) {
+    // should remove recordId from previous project
+    Meteor.call('deleteRecordFromProject', recordId );
+    
+    // update the project attr in records
+    var newProject = Meteor.call('addProject', newProjectName); 
+    var project = {
+          projectId: newProject.projectId,
+          projectName: newProjectName
+        };
+
+    Records.update(recordId, {
+      $set: {
+        project: project
+      }
+    });  
+
+    // and add the record to the new project
+    Meteor.call('addRecordToProject', newProject.projectId, recordId);
+  }
+});
