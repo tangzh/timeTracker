@@ -1,56 +1,45 @@
+/** Schema for Records Collection
+{
+  _id: ,
+  startTime: ,
+  endTime: ,
+  project: {
+    _id: ,
+    projectName: 
+  },
+  labels: [
+    {
+      label_id: ,
+      label_name: ,
+      label_color: 
+    }
+  ]
+  records: [
+    record_id, record_id, record_id, record_id, 
+  ]
+}
+*/
+
+
+
 /** Schema for Users Collection
 {
   _id: ,
   username: ,
   records: [ 
-    {
-      _id: ,
-      project: {
-        _id: ,
-        projectName: 
-      },
-      startTime: ,
-      endTime: ,
-      timeLength: ,
-      labels:[
-        {
-          _id: ,
-          name: ,
-          color: 
-        },
-        {
-          _id: ,
-          name: ,
-          color: 
-        }
-      ]
-    },
-    {
-      _id: ,
-      projectName: ,
-      startTime: ,
-      endTime: ,
-      timeLength: ,
-      labels:[
-        {
-          _id: ,
-          name: ,
-          color: 
-        }
-      ]
-    }
+    record_id, record_id, record_id, record_id, 
   ]
 }
 */
+
+
 
 /** Schema for Projects Collection
 {
   _id: ,
   projectName: ,
-  users: [
-    {
-      user_id: [record_id, record_id, ...] 
-    }
+  records: [
+    record_id, record_id, record_id, record_id, 
   ]
 }
 */
@@ -60,10 +49,8 @@
   _id: ,
   labelName: ,
   color: ,
-  users: [
-    {
-      user_id: [record_id, record_id, ...] 
-    }
+  records: [
+    record_id, record_id, record_id, record_id, 
   ]
 }
 */
