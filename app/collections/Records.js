@@ -6,7 +6,6 @@ Records = new Mongo.Collection("records");
   projectName: ,
   startTime: ,
   endTime: ,
-  timeLength: ,
   labels:[
     {
       _id: ,
@@ -39,12 +38,14 @@ Meteor.methods({
       recordId = result;
       Meteor.call('addRecordToUser', recordId);
       Meteor.call('addRecordToProject', project.projectId, recordId);
+      Meteor.call('addRecordToLabels', record.labels, recordId);
     });  
   },
 
   deleteRecord: function(recordId) {
     Meteor.call('deleteRecordFromUser', recordId );  
     Meteor.call('deleteRecordFromProject', recordId );
+    Meteor.call('deleteRecordFromLabels', recordId);
     Records.remove(recordId);  
   },
 

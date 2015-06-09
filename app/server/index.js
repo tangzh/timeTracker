@@ -8,6 +8,8 @@ if (Meteor.isServer) {
 	  // for its existence later.
 	  user.profile = options.profile ? options.profile : {};
 	  user.profile.records = [];
+    user.profile.projects = [];
+    user.profile.labels = [];
 	  return user;
 	});
 
@@ -31,6 +33,14 @@ if (Meteor.isServer) {
     }
 
   	return Projects.find({});
+  });
+
+  Meteor.publish('labels', function() {
+  	if (!this.userId) {
+      throw new Meteor.Error("not-authorized");
+    }
+
+  	return Labels.find({});
   });
 
 }

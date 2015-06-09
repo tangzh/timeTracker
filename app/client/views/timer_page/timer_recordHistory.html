@@ -17,9 +17,17 @@
         <br>
         <span>To: {{ formatDate endtime}}</span>
       </div>
-      <div class="labels-container"></div>
-      
+      <div class="col-xs-6"></div>
+      <div class="labels-container col-xs-12">
+        {{#each labels}}
+          {{> recordLabel}}
+        {{/each}}
+      </div>     
     </div>
-
   </li>
+</template>
+
+
+<template name="recordLabel">
+  <span class="label" style="background: {{color}}">{{labelName}}</span>
 </template>

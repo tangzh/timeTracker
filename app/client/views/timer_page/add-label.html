@@ -4,25 +4,39 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title">Add Label</h4>
+          <h3 class="modal-title">Label</h3>
         </div>
         <div class="modal-body">
+          {{> currentLabels}}
           {{> chooseLabel}}
           {{> addNewLabel}}
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Add Label</button>
+          <button type="button" class="btn btn-default cancel-btn" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Done</button>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<template name="chooseLabel">
-  <div>
-    <h3>Choose Label</h3>
+<template name="currentLabels">
+  <div class="current-labels-container">
+    <h6>Current Labels: </h6>
+    {{#each currentLabels}}
+      {{> currentLabel}}
+    {{/each}}
+  </div>
+  
+</template>
 
+<template name="currentLabel">
+  <button class="current-label btn" style="background: {{color}}">{{labelName}}</button>
+</template>
+
+<template name="chooseLabel">
+  <div class="choose-label-container">
+    <h6>Choose Label</h6>
     {{#each labels}}
       {{> label}}
     {{/each}}
@@ -30,10 +44,24 @@
 </template>
 
 <template name="label">
-  <span>{{name}}</span>
+  <span class="choose-label">
+     <button class="label-to-choose btn" style="background: {{color}}">{{labelName}}</button>
+  </span> 
 </template>
 
-
 <template name="addNewLabel">
+  <div class="add-new-label-container">
+    <div class="row">
+      <div class="form-group col-xs-6">
+        <input type="text" name="text" class="form-control new-label-name-field" placeholder="Enter a new label here..." />
+      </div>
+      <div class="form-group col-xs-3">
+        <input type="color" name="text" class="form-control new-label-color-field" />
+      </div>
+      <div class="form-group col-xs-3">
+        <button type="button" class="form-control add-new-label-btn pull-right btn btn-primary">Add Label</button>
+      </div>
+    </div>
+  </div>
 </template>
 

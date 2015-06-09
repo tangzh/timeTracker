@@ -76,12 +76,13 @@ if (Meteor.isClient) {
     	Session.set('startedTimer', false);
     	Session.set('btnClass', START_BTN_CLASS);
       clearInterval(timerFunc);
+      console.log(Session.get("currentLabels"));
 
       var newRecord = {
       	projectName: projectName,
       	starttime: starttime,
       	endtime: new Date(),
-      	labels: []
+      	labels: Session.get("currentLabels")
       };
 
       Meteor.call('addRecord', newRecord);

@@ -30,6 +30,10 @@ body {
   margin-top: 0;
 }
 
+button {
+  border: none;
+}
+
 /*----------------------  CSS for login --------------------------------*/
 #login-buttons .login-button {
   background-color: #1abc9c;
@@ -116,7 +120,43 @@ li {
   font-size: 0.8em;
 }
 
-
+/*----------------------  CSS for label modal --------------------------------*/
 #add-label-modal {
-  color: #eee;
+  color: #333;
+
+  .choose-label-container, .current-labels-container {
+    padding: 20px 0;
+  }
+
+  .current-labels-container {
+    border-bottom: 1px solid #333;
+  }
+
+  .label-to-choose:hover {
+    content: '\e609';
+  }
+
+  .add-new-label-container {
+    button {
+      border: none;
+    }
+  }
+
+  .current-label, .choose-label {
+    display: inline-block;
+    margin: 5px 0;
+  }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
